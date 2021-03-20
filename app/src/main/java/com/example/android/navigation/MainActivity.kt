@@ -39,6 +39,14 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, controller, drawerLayout)
         appBarConfiguration = AppBarConfiguration(controller.graph, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, controller)
+
+        controller.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == controller.graph.startDestination) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
